@@ -1,5 +1,8 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from "vue";
+import "./style.css";
+import App from "./App.vue";
+import axios from "axios";
 
-createApp(App).mount('#app')
+axios.defaults.baseURL = process.env.NODE_ENV === "development" ? "http://localhost:5000" : "/";
+
+createApp(App).mount("#app");
