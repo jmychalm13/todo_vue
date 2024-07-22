@@ -5,6 +5,8 @@ export default {
     return {
       todos: [],
       newTodoParams: {},
+      currentTodo: {},
+      editTodoParams: {},
     };
   },
   created: function () {
@@ -29,6 +31,23 @@ export default {
           console.log("todo create error", error.response);
         });
     },
+    showTodo: function (todo) {
+      this.currentTodo = todo;
+      this.editTodoParams = todo;
+      document.querySelector("#todo-details").showModal();
+    },
+    updateTodo: function (todo) {
+      console.log("triggered", todo.id);
+      axios
+        .patch(`http://localhost:5000/update/${todo.id}`, this.editTodoParams)
+        .then((response) => {
+          console.log("todo update", response);
+          this.currentTodo = {};
+        })
+        .catch((error) => {
+          console.log("todo update error", error.response);
+        });
+    },
   },
 };
 </script>
@@ -44,7 +63,18 @@ export default {
     <h1>All Todos</h1>
     <div v-for="todo in todos" v-bind:key="todo.id">
       <h2>{{ todo.title }}</h2>
+      <button v-on:click="showTodo(todo)">More Info</button>
     </div>
+    <dialog id="todo-details">
+      <form method="dialog">
+        <h1>Todo Info</h1>
+        <p>
+          Title:
+          <input type="text" v-model="editTodoParams.title" />
+        </p>
+        <button v-on:click="updateTodo(currentTodo)">Update</button>
+      </form>
+    </dialog>
   </div>
 </template>
 
