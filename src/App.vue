@@ -48,6 +48,13 @@ export default {
           console.log("todo update error", error.response);
         });
     },
+    destroyTodo: function (todo) {
+      axios.delete(`http://localhost:5000/delete/${todo.id}`).then((response) => {
+        console.log("todo destroy", response);
+        var index = this.todos.indexOf(todo);
+        this.todos.splice(index, 1);
+      });
+    },
   },
 };
 </script>
@@ -73,6 +80,8 @@ export default {
           <input type="text" v-model="editTodoParams.title" />
         </p>
         <button v-on:click="updateTodo(currentTodo)">Update</button>
+        <button v-on:click="destroyTodo(currentTodo)">Destroy Todo</button>
+        <button>Close</button>
       </form>
     </dialog>
   </div>
