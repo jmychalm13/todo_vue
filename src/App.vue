@@ -86,5 +86,3 @@ export default {
     </dialog>
   </div>
 </template>
-
-<style></style>
