@@ -7,7 +7,13 @@ export default {
       newTodoParams: {},
       currentTodo: {},
       editTodoParams: {},
+      currentDate: new Date(),
     };
+  },
+  computed: {
+    formattedDate() {
+      return this.currentDate.toDateString();
+    },
   },
   created: function () {
     this.indexTodos();
@@ -60,7 +66,13 @@ export default {
 </script>
 
 <template>
-  <div class="home">
+  <div class="home w-screen h-screen bg-gradient-to-br from-blue-200 to-cyan-200">
+    <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+      <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Things to do:</span>
+      {{ formattedDate }}
+    </h1>
+    <!-- <div class="paper"></div>
+    <div class="paper"></div> -->
     <h1>New Todo</h1>
     <div>
       Title:
