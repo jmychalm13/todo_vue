@@ -8,6 +8,7 @@ export default {
       currentTodo: {},
       editTodoParams: {},
       currentDate: new Date(),
+      maxLength: 18,
     };
   },
   computed: {
@@ -19,6 +20,12 @@ export default {
     this.indexTodos();
   },
   methods: {
+    truncateTitle: function (title) {
+      if (title.length > this.maxLength) {
+        return title.slice(0, this.maxLength) + "...";
+      }
+      return title;
+    },
     indexTodos: function () {
       axios.get("http://localhost:5000/todos").then((response) => {
         console.log("todos index", response);
@@ -67,14 +74,14 @@ export default {
 
 <template>
   <div class="p-6 home w-screen h-screen bg-gradient-to-br from-blue-200 to-cyan-200">
-    <div class="paper p-10">
-      <h1 class="text-center">Add Task</h1>
+    <div class="paper p-10 border border-t-0 border-cyan-600 rounded-md">
+      <h1 class="text-center font-bold text-2xl text-cyan-600">Add Task</h1>
       <div>
         <input
           type="text"
           v-model="newTodoParams.title"
           id="title"
-          class="m-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="m-2 bg-cyan-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           placeholder="study for test"
           required
         />
@@ -96,10 +103,10 @@ export default {
         v-bind:key="todo.id"
         class="shadow-lg block rounded-lg bg-white p-6 text-surface shadow-secondary-1 m-4"
       >
-        <h5 class="mb-2 text-xl font-medium leading-tight">{{ todo.title }}</h5>
+        <p class="text-cyan-700 mb-2 text-xl font-medium leading-tight uppercase">{{ truncateTitle(todo.title) }}</p>
         <button
           v-on:click="showTodo(todo)"
-          class="inline-block rounded bg-sky-300 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white hover:bg-sky-500"
+          class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-cyan-600 dark:hover:bg-sky-700 dark:focus:ring-cyan-900"
           data-twe-ripple-init
           data-twe-ripple-color="light"
         >
