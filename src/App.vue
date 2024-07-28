@@ -114,16 +114,32 @@ export default {
         </button>
       </div>
     </div>
-    <dialog id="todo-details">
+    <dialog id="todo-details" class="w-[60%] min-w-[40%] p-6 border border-black">
       <form method="dialog">
         <h1>Todo Info</h1>
         <p>
           Title:
           <input type="text" v-model="editTodoParams.title" />
         </p>
-        <button v-on:click="updateTodo(currentTodo)">Update</button>
-        <button v-on:click="destroyTodo(currentTodo)">Destroy Todo</button>
-        <button>Close</button>
+        <div class="w-full flex justify-between">
+          <button
+            v-on:click="updateTodo(currentTodo)"
+            class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-cyan-600 dark:hover:bg-sky-700 dark:focus:ring-cyan-900"
+          >
+            Update
+          </button>
+          <button
+            v-on:click="destroyTodo(currentTodo)"
+            class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-cyan-600 dark:hover:bg-sky-700 dark:focus:ring-cyan-900"
+          >
+            Destroy Todo
+          </button>
+          <button
+            class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-cyan-600 dark:hover:bg-sky-700 dark:focus:ring-cyan-900"
+          >
+            Close
+          </button>
+        </div>
       </form>
     </dialog>
   </div>
