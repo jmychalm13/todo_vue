@@ -7,6 +7,7 @@ export default {
       newTodoParams: {},
       currentTodo: {},
       editTodoParams: {},
+      originalTitle: "",
       currentDate: new Date(),
       maxLength: 18,
     };
@@ -14,6 +15,9 @@ export default {
   computed: {
     formattedDate() {
       return this.currentDate.toDateString();
+    },
+    titleClass() {
+      return this.editTodoParams.title === this.originalTitle ? "text-black" : "text-red-500";
     },
   },
   created: function () {
@@ -46,20 +50,32 @@ export default {
     },
     showTodo: function (todo) {
       this.currentTodo = todo;
-      this.editTodoParams = todo;
+      this.editTodoParams = { ...todo };
+      this.originalTitle = todo.title;
+      this.originalTitle = todo.title;
       document.querySelector("#todo-details").showModal();
     },
-    updateTodo: function (todo) {
-      console.log("triggered", todo.id);
+    updateTodo: function () {
       axios
-        .patch(`http://localhost:5000/update/${todo.id}`, this.editTodoParams)
+        .patch(`http://localhost:5000/update/${this.currentTodo.id}`, this.editTodoParams)
         .then((response) => {
           console.log("todo update", response);
-          this.currentTodo = {};
+          const updatedTodo = response.data;
+          const index = this.todos.findIndex((todo) => todo.id === this.currentTodo.id);
+          if (index !== -1) {
+            this.todos.splice(index, 1, updatedTodo);
+          }
+          this.closeModal();
         })
         .catch((error) => {
           console.log("todo update error", error.response);
         });
+    },
+    closeModal() {
+      document.querySelector("#todo-details").close();
+      this.editTodoParams = {};
+      this.currentTodo = {};
+      this.originalTitle = "";
     },
     destroyTodo: function (todo) {
       axios.delete(`http://localhost:5000/delete/${todo.id}`).then((response) => {
@@ -127,13 +143,14 @@ export default {
             <input
               type="text"
               v-model="editTodoParams.title"
+              :class="titleClass"
               class="placeholder-sky-500 text-fuchsia-200 mt-2 p-2 border border-gray-300 rounded"
             />
           </p>
         </div>
         <div class="w-full flex justify-between">
           <button
-            v-on:click="updateTodo(currentTodo)"
+            v-on:click="updateTodo()"
             class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-cyan-600 dark:hover:bg-sky-700 dark:focus:ring-cyan-900"
           >
             Update
@@ -145,6 +162,7 @@ export default {
             Destroy Todo
           </button>
           <button
+            v-on:click="closeModal"
             class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-cyan-600 dark:hover:bg-sky-700 dark:focus:ring-cyan-900"
           >
             Close
