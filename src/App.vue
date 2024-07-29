@@ -88,6 +88,18 @@ export default {
         this.todos.splice(index, 1);
       });
     },
+    toggleComplete(todo) {
+      axios
+        .patch(`/todo/${todo.id}/complete`, {
+          complete: todo.complete,
+        })
+        .then((response) => {
+          console.log("Todo updated", response.data);
+        })
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
+    },
   },
 };
 </script>
@@ -95,7 +107,10 @@ export default {
 <template>
   <div class="p-6 home w-screen min-h-screen h-full bg-gradient-to-br from-blue-200 to-cyan-200">
     <div class="paper p-10 border border-t-0 border-cyan-600 rounded-md">
-      <h1 class="text-center font-bold text-2xl text-cyan-600">Add Task</h1>
+      <!-- <h1 class="text-center font-bold text-3xl text-cyan-600">Add Task</h1> -->
+      <h1 class="mb-2 text-center text-2xl font-extrabold text-gray-900">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Add Task</span>
+      </h1>
       <div>
         <div class="w-full">
           <p class="text-xl font-semibold text-cyan-700">
@@ -128,6 +143,11 @@ export default {
         v-bind:key="todo.id"
         class="shadow-lg block rounded-lg bg-white p-6 text-surface shadow-secondary-1 m-4"
       >
+        <ul>
+          <li>
+            <input type="checkbox" v-model="todo.complete" @change="toggleComplete(todo)" />
+          </li>
+        </ul>
         <p class="text-cyan-700 mb-2 text-xl font-medium leading-tight uppercase">{{ truncateTitle(todo.title) }}</p>
         <button
           v-on:click="showTodo(todo)"
