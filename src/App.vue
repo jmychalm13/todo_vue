@@ -141,6 +141,7 @@ export default {
       :updateTodo="updateTodo"
       :destroyTodo="destroyTodo"
       :closeModal="closeModal"
+      :currentTodo="currentTodo"
     ></Modal>
   </div>
 </template>

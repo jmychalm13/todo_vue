@@ -19,19 +19,19 @@
       </div>
       <div class="w-full flex justify-between">
         <button
-          v-on:click="updateTodo()"
+          @click.prevent="updateTodo"
           class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-cyan-600 dark:hover:bg-sky-700 dark:focus:ring-cyan-900"
         >
           Update
         </button>
         <button
-          v-on:click="destroyTodo(currentTodo)"
+          @click.prevent="destroyTodo(currentTodo)"
           class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-cyan-600 dark:hover:bg-sky-700 dark:focus:ring-cyan-900"
         >
           Destroy Todo
         </button>
         <button
-          v-on:click="closeModal"
+          @click.prevent="closeModal"
           class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-cyan-600 dark:hover:bg-sky-700 dark:focus:ring-cyan-900"
         >
           Close
@@ -50,6 +50,7 @@ export default {
     updateTodo: Function,
     destroyTodo: Function,
     closeModal: Function,
+    currentTodo: Object,
   },
   methods: {
     open() {
