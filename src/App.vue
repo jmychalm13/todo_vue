@@ -93,18 +93,23 @@ export default {
 </script>
 
 <template>
-  <div class="p-6 home w-screen h-full bg-gradient-to-br from-blue-200 to-cyan-200">
+  <div class="p-6 home w-screen min-h-screen h-full bg-gradient-to-br from-blue-200 to-cyan-200">
     <div class="paper p-10 border border-t-0 border-cyan-600 rounded-md">
       <h1 class="text-center font-bold text-2xl text-cyan-600">Add Task</h1>
       <div>
-        <input
-          type="text"
-          v-model="newTodoParams.title"
-          id="title"
-          class="m-2 bg-cyan-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          placeholder="study for test"
-          required
-        />
+        <div class="w-full">
+          <p class="text-xl font-semibold text-cyan-700">
+            Task:
+            <input
+              id="title"
+              type="text"
+              v-model="newTodoParams.title"
+              class="placeholder-cyan-500 my-2 p-2 border border-gray-300 rounded bg-sky-100"
+              placeholder="enter new task..."
+              required
+            />
+          </p>
+        </div>
         <button
           v-on:click="createTodo()"
           class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-cyan-600 dark:hover:bg-sky-700 dark:focus:ring-cyan-900"
