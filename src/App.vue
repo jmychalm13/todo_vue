@@ -89,7 +89,7 @@ export default {
 </script>
 
 <template>
-  <div class="p-6 home w-screen h-screen bg-gradient-to-br from-blue-200 to-cyan-200">
+  <div class="p-6 home w-screen h-full bg-gradient-to-br from-blue-200 to-cyan-200">
     <div class="paper p-10 border border-t-0 border-cyan-600 rounded-md">
       <h1 class="text-center font-bold text-2xl text-cyan-600">Add Task</h1>
       <div>
