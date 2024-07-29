@@ -17,7 +17,7 @@ export default {
       return this.currentDate.toDateString();
     },
     titleClass() {
-      return this.editTodoParams.title === this.originalTitle ? "text-black" : "text-red-500";
+      return this.editTodoParams.title === this.originalTitle ? "text-cyan-700" : "text-fuchsia-600";
     },
   },
   created: function () {
@@ -144,7 +144,7 @@ export default {
               type="text"
               v-model="editTodoParams.title"
               :class="titleClass"
-              class="placeholder-sky-500 text-fuchsia-200 mt-2 p-2 border border-gray-300 rounded"
+              class="mt-2 p-2 border border-gray-300 rounded"
             />
           </p>
         </div>
