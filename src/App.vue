@@ -107,30 +107,28 @@ export default {
 <template>
   <div class="p-6 home w-screen min-h-screen h-full bg-gradient-to-br from-blue-200 to-cyan-200">
     <div class="paper p-10 border border-t-0 border-cyan-600 rounded-md">
-      <!-- <h1 class="text-center font-bold text-3xl text-cyan-600">Add Task</h1> -->
-      <h1 class="mb-2 text-center text-2xl font-extrabold text-gray-900">
+      <h1 class="mb-6 text-center text-2xl font-extrabold text-gray-900">
         <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Add Task</span>
       </h1>
-      <div>
+      <div class="flex justify-between">
         <div class="w-full">
-          <p class="text-xl font-semibold text-cyan-700">
-            Task:
-            <input
-              id="title"
-              type="text"
-              v-model="newTodoParams.title"
-              class="placeholder-cyan-500 my-2 p-2 border border-gray-300 rounded bg-sky-100"
-              placeholder="enter new task..."
-              required
-            />
-          </p>
+          <input
+            id="title"
+            type="text"
+            v-model="newTodoParams.title"
+            class="placeholder-cyan-500 my-2 p-2 border border-gray-300 rounded bg-sky-100 w-[50%]"
+            placeholder="enter new task..."
+            required
+          />
         </div>
-        <button
-          v-on:click="createTodo()"
-          class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-cyan-600 dark:hover:bg-sky-700 dark:focus:ring-cyan-900"
-        >
-          Create
-        </button>
+        <div>
+          <button
+            v-on:click="createTodo()"
+            class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-cyan-600 dark:hover:bg-sky-700 dark:focus:ring-cyan-900"
+          >
+            Create
+          </button>
+        </div>
       </div>
     </div>
     <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
@@ -143,15 +141,28 @@ export default {
         v-bind:key="todo.id"
         class="shadow-lg block rounded-lg bg-white p-6 text-surface shadow-secondary-1 m-4"
       >
-        <ul>
-          <li>
-            <input type="checkbox" v-model="todo.complete" @change="toggleComplete(todo)" />
-          </li>
-        </ul>
-        <p class="text-cyan-700 mb-2 text-xl font-medium leading-tight uppercase">{{ truncateTitle(todo.title) }}</p>
+        <div class="flex justify-between">
+          <div>
+            <p class="text-cyan-700 mb-2 text-xl font-medium leading-tight uppercase">
+              {{ truncateTitle(todo.title) }}
+            </p>
+          </div>
+          <div>
+            <ul>
+              <li>
+                <input
+                  type="checkbox"
+                  v-model="todo.complete"
+                  @change="toggleComplete(todo)"
+                  class="accent-cyan-600 cursor-pointer"
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
         <button
           v-on:click="showTodo(todo)"
-          class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-cyan-600 dark:hover:bg-sky-700 dark:focus:ring-cyan-900"
+          class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2"
           data-twe-ripple-init
           data-twe-ripple-color="light"
         >
